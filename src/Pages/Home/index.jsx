@@ -1,5 +1,7 @@
+import Layout from '../../Components/Layout';
+
 function Home() {
-  return <div className="bg-green-500">Home</div>;
+  return <Layout>Home</Layout>;
 }
 
 export default Home;
