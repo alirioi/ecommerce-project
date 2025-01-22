@@ -26,7 +26,7 @@ const Card = (data) => {
           alt={title}
         />
         <PlusCircleIcon
-          className="absolute top-0 right-0 flex justify-center items-center bg-white size-6 text-gray-600 hover:text-black rounded-full m-1"
+          className="absolute top-0 right-0 flex justify-center items-center bg-white size-6 text-black/70 hover:text-black rounded-full m-1"
           onClick={(e) => {
             e.stopPropagation();
             context.setCount(context.count + 1);
