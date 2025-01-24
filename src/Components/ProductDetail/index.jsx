@@ -12,16 +12,19 @@ const ProductDetail = () => {
         isProductDetailOpen ? 'flex' : 'hidden'
       } top-[68px] w-[360px] h-[calc(100vh-68px)] flex-col fixed bg-white right-0 border shadow-md rounded-lg overflow-y-scroll`}
     >
-      <div className="p-6">
-        <XMarkIcon
-          className="text-black/70 size-6 cursor-pointer hover:text-black"
-          onClick={() => closeProductDetail()}
-        />
+      <div className="flex justify-between items-center p-6">
+        <h2 className="font-medium text-xl">Details</h2>
+        <div>
+          <XMarkIcon
+            className="text-black/70 size-6 cursor-pointer hover:text-black"
+            onClick={() => closeProductDetail()}
+          />
+        </div>
       </div>
 
       <figure>
         <img
-          className="w-full max-h-80 object-contain rounded-lg mb-6 px-6"
+          className="w-full max-h-80 object-contain rounded-lg my-6 px-6"
           src={productToShow.image}
           alt={productToShow.title}
         />
