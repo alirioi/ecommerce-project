@@ -8,9 +8,12 @@ const Card = ({ data }) => {
     count,
     setCount,
     openProductDetail,
+    closeProductDetail,
     setProductToShow,
     cartProducts,
     setCartProduct,
+    openCheckoutSideMenu,
+    closeCheckoutSideMenu,
   } = useContext(ShoppingCartContext);
 
   // eslint-disable-next-line react/prop-types
@@ -19,11 +22,15 @@ const Card = ({ data }) => {
   const showProduct = (productDetail) => {
     openProductDetail();
     setProductToShow(productDetail);
+    closeCheckoutSideMenu();
   };
 
-  const addProductToCart = (productData) => {
-    setCartProduct([...cartProducts, productData]);
+  const addProductToCart = (event, productData) => {
+    event.stopPropagation();
     setCount(count + 1);
+    setCartProduct([...cartProducts, productData]);
+    closeProductDetail();
+    openCheckoutSideMenu();
     console.log('Cart: ', cartProducts);
   };
 
@@ -43,10 +50,7 @@ const Card = ({ data }) => {
         />
         <PlusCircleIcon
           className="absolute top-0 right-0 flex justify-center items-center bg-white size-6 text-black/70 hover:text-black rounded-full m-1"
-          onClick={(e) => {
-            e.stopPropagation();
-            addProductToCart(data);
-          }}
+          onClick={(event) => addProductToCart(event, data)}
         />
       </figure>
       <p className="flex justify-between items-center gap-3 px-2.5">
