@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { ShoppingCartContext } from '../../Context';
+import { totalPrice } from '../../Utils';
 import OrderCard from '../OrderCard';
 
 const CheckoutSideMenu = () => {
@@ -34,7 +35,7 @@ const CheckoutSideMenu = () => {
         </div>
       </div>
 
-      <div className="p-6">
+      <div className="pt-6 mb-[74px]">
         {cartProducts.length > 0 ? (
           cartProducts.map((product) => (
             <OrderCard
@@ -49,6 +50,13 @@ const CheckoutSideMenu = () => {
         ) : (
           <p className="text-center text-lg font-light">Your cart is empty</p>
         )}
+      </div>
+
+      <div className="fixed bottom-0 right-0 w-[360px] p-6 bg-white border-t-2">
+        <p className="flex justify-between items-center">
+          <span className="text-lg font-medium">Total:</span>
+          <span className="text-xl font-bold">${totalPrice(cartProducts)}</span>
+        </p>
       </div>
     </aside>
   );

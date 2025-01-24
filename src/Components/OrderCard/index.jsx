@@ -5,11 +5,11 @@ const OrderCard = (props) => {
   const { id, title, image, price, handleDelete } = props;
 
   return (
-    <div className="flex justify-between items-center rounded-lg px-4 py-2 mb-2 hover:shadow-lg">
+    <div className="flex justify-between items-center px-4 py-2 mb-2 hover:shadow-lg">
       <div className="flex items-center gap-4 max-w-44">
         <figure className="w-20 h-20">
           <img
-            className="w-full h-full rounded-lg object-contain"
+            className="w-full h-full object-contain"
             src={image}
             alt={title}
           />
