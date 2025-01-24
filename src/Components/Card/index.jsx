@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { ShoppingCartContext } from '../../Context';
 
 // eslint-disable-next-line react/prop-types
@@ -34,9 +35,29 @@ const Card = ({ data }) => {
     console.log('Cart: ', cartProducts);
   };
 
+  const renderIcon = (id) => {
+    const isInCart =
+      cartProducts.filter((product) => product.id === id).length > 0;
+    if (isInCart) {
+      return (
+        <CheckCircleIcon
+          className="absolute top-1 right-1 flex justify-center items-center size-6 text-black"
+          onClick={(e) => e.stopPropagation()}
+        />
+      );
+    } else {
+      return (
+        <PlusCircleIcon
+          className="absolute top-1 right-1 flex justify-center items-center size-6 text-black/70 hover:text-black"
+          onClick={(event) => addProductToCart(event, data)}
+        />
+      );
+    }
+  };
+
   return (
     <div
-      className="bg-white cursor-pointer w-56 h-64 rounded-lg mb-6 shadow-xl"
+      className="bg-white cursor-pointer w-56 h-64 rounded-lg mb-6 shadow-md hover:shadow-2xl"
       onClick={() => showProduct(data)}
     >
       <figure className="relative mb-2 w-full h-4/5 px-2">
@@ -48,10 +69,8 @@ const Card = ({ data }) => {
           src={image}
           alt={title}
         />
-        <PlusCircleIcon
-          className="absolute top-0 right-0 flex justify-center items-center bg-white size-6 text-black/70 hover:text-black rounded-full m-1"
-          onClick={(event) => addProductToCart(event, data)}
-        />
+        {/* eslint-disable-next-line react/prop-types */}
+        {renderIcon(data.id)}
       </figure>
       <p className="flex justify-between items-center gap-3 px-2.5">
         <span className="text-xs font-light line-clamp-2">{title}</span>

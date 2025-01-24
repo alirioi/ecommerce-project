@@ -6,7 +6,6 @@ import OrderCard from '../OrderCard';
 const CheckoutSideMenu = () => {
   const { isCheckoutSideMenuOpen, closeCheckoutSideMenu, cartProducts } =
     useContext(ShoppingCartContext);
-  console.log(cartProducts);
 
   return (
     <aside
