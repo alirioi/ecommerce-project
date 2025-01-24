@@ -6,8 +6,6 @@ import { ShoppingCartContext } from '../../Context';
 // eslint-disable-next-line react/prop-types
 const Card = ({ data }) => {
   const {
-    count,
-    setCount,
     openProductDetail,
     closeProductDetail,
     setProductToShow,
@@ -28,7 +26,6 @@ const Card = ({ data }) => {
 
   const addProductToCart = (event, productData) => {
     event.stopPropagation();
-    setCount(count + 1);
     setCartProduct([...cartProducts, productData]);
     closeProductDetail();
     openCheckoutSideMenu();

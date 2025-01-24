@@ -1,8 +1,8 @@
-import { XMarkIcon } from '@heroicons/react/24/solid';
+import { TrashIcon } from '@heroicons/react/24/solid';
 
 const OrderCard = (props) => {
   // eslint-disable-next-line react/prop-types
-  const { title, image, price } = props;
+  const { id, title, image, price, handleDelete } = props;
 
   return (
     <div className="flex justify-between items-center rounded-lg px-4 py-2 mb-2 hover:shadow-lg">
@@ -19,9 +19,9 @@ const OrderCard = (props) => {
 
       <div className="flex items-center gap-2">
         <p className="text-lg font-medium">${price}</p>
-        <XMarkIcon
+        <TrashIcon
           className="text-black/70 size-4 cursor-pointer hover:text-black"
-          onClick={() => console.log('delete')}
+          onClick={() => handleDelete(id)}
         />
       </div>
     </div>

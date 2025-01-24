@@ -4,8 +4,19 @@ import { ShoppingCartContext } from '../../Context';
 import OrderCard from '../OrderCard';
 
 const CheckoutSideMenu = () => {
-  const { isCheckoutSideMenuOpen, closeCheckoutSideMenu, cartProducts } =
-    useContext(ShoppingCartContext);
+  const {
+    isCheckoutSideMenuOpen,
+    closeCheckoutSideMenu,
+    cartProducts,
+    setCartProduct,
+  } = useContext(ShoppingCartContext);
+
+  const handleDelete = (id) => {
+    const filteredProducts = cartProducts.filter(
+      (product) => product.id !== id
+    );
+    setCartProduct(filteredProducts);
+  };
 
   return (
     <aside
@@ -24,14 +35,20 @@ const CheckoutSideMenu = () => {
       </div>
 
       <div className="p-6">
-        {cartProducts.map((product) => (
-          <OrderCard
-            key={product.id}
-            title={product.title}
-            image={product.image}
-            price={product.price}
-          />
-        ))}
+        {cartProducts.length > 0 ? (
+          cartProducts.map((product) => (
+            <OrderCard
+              key={product.id}
+              id={product.id}
+              title={product.title}
+              image={product.image}
+              price={product.price}
+              handleDelete={handleDelete}
+            />
+          ))
+        ) : (
+          <p className="text-center text-lg font-light">Your cart is empty</p>
+        )}
       </div>
     </aside>
   );
