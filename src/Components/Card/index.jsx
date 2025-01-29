@@ -29,7 +29,6 @@ const Card = ({ data }) => {
     setCartProduct([...cartProducts, productData]);
     closeProductDetail();
     openCheckoutSideMenu();
-    console.log('Cart: ', cartProducts);
   };
 
   const renderIcon = (id) => {

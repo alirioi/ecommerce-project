@@ -10,6 +10,8 @@ const CheckoutSideMenu = () => {
     closeCheckoutSideMenu,
     cartProducts,
     setCartProduct,
+    order,
+    setOrder,
   } = useContext(ShoppingCartContext);
 
   const handleDelete = (id) => {
@@ -17,6 +19,25 @@ const CheckoutSideMenu = () => {
       (product) => product.id !== id
     );
     setCartProduct(filteredProducts);
+  };
+
+  const handleCheckout = () => {
+    const orderToAdd = {
+      date: new Date().toISOString(),
+      products: cartProducts,
+      totalProducts: cartProducts.length,
+      totalPrice: totalPrice(cartProducts),
+    };
+
+    if (orderToAdd.totalProducts > 0) {
+      setOrder([...order, orderToAdd]);
+      console.log(order);
+      setCartProduct([]);
+      closeCheckoutSideMenu();
+      alert('Order added successfully');
+    } else {
+      alert('Please add some products to your cart');
+    }
   };
 
   return (
@@ -35,7 +56,7 @@ const CheckoutSideMenu = () => {
         </div>
       </div>
 
-      <div className="pt-6 mb-[74px]">
+      <div className="pt-6 mb-[124px]">
         {cartProducts.length > 0 ? (
           cartProducts.map((product) => (
             <OrderCard
@@ -52,11 +73,17 @@ const CheckoutSideMenu = () => {
         )}
       </div>
 
-      <div className="fixed bottom-0 right-0 w-[360px] p-6 bg-white border-t-2">
+      <div className="fixed bottom-0 right-0 w-[360px] p-6 pt-3 bg-white border-t-2">
         <p className="flex justify-between items-center">
           <span className="text-lg font-medium">Total:</span>
           <span className="text-xl font-bold">${totalPrice(cartProducts)}</span>
         </p>
+        <button
+          className="w-full mt-4 bg-black/70 hover:bg-black text-white font-medium px-4 py-2 rounded-lg"
+          onClick={handleCheckout}
+        >
+          Checkout
+        </button>
       </div>
     </aside>
   );
