@@ -36,8 +36,6 @@ const CheckoutSideMenu = () => {
       setCartProduct([]);
       closeCheckoutSideMenu();
       alert('Order added successfully');
-    } else {
-      alert('Please add some products to your cart');
     }
   };
 
@@ -74,20 +72,24 @@ const CheckoutSideMenu = () => {
         )}
       </div>
 
-      <div className="fixed bottom-0 right-0 w-[360px] p-6 pt-3 bg-white border-t-2">
-        <p className="flex justify-between items-center">
-          <span className="text-lg font-medium">Total:</span>
-          <span className="text-xl font-bold">${totalPrice(cartProducts)}</span>
-        </p>
-        <Link to="/my-orders/last">
-          <button
-            className="w-full mt-4 bg-black/70 hover:bg-black text-white font-medium px-4 py-2 rounded-lg"
-            onClick={handleCheckout}
-          >
-            Checkout
-          </button>
-        </Link>
-      </div>
+      {cartProducts.length > 0 ? (
+        <div className="fixed bottom-0 right-0 w-[360px] p-6 pt-3 bg-white border-t-2">
+          <p className="flex justify-between items-center">
+            <span className="text-lg font-medium">Total:</span>
+            <span className="text-xl font-bold">
+              ${totalPrice(cartProducts)}
+            </span>
+          </p>
+          <Link to="/my-orders/last">
+            <button
+              className="w-full mt-4 bg-black/70 hover:bg-black text-white font-medium px-4 py-2 rounded-lg"
+              onClick={handleCheckout}
+            >
+              Checkout
+            </button>
+          </Link>
+        </div>
+      ) : null}
     </aside>
   );
 };
