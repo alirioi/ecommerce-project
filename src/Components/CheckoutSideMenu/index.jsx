@@ -24,19 +24,16 @@ const CheckoutSideMenu = () => {
 
   const handleCheckout = () => {
     const orderToAdd = {
-      date: new Date().toISOString(),
+      date: new Date().toLocaleDateString(),
       products: cartProducts,
       totalProducts: cartProducts.length,
       totalPrice: totalPrice(cartProducts),
     };
 
-    if (orderToAdd.totalProducts > 0) {
-      setOrder([...order, orderToAdd]);
-      console.log(order);
-      setCartProduct([]);
-      closeCheckoutSideMenu();
-      alert('Order added successfully');
-    }
+    setOrder([...order, orderToAdd]);
+    console.log(order);
+    setCartProduct([]);
+    closeCheckoutSideMenu();
   };
 
   return (
