@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { nanoid } from 'nanoid';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { ShoppingCartContext } from '../../Context';
 import { totalPrice } from '../../Utils';
@@ -28,10 +29,10 @@ const CheckoutSideMenu = () => {
       products: cartProducts,
       totalProducts: cartProducts.length,
       totalPrice: totalPrice(cartProducts),
+      id: nanoid(10),
     };
 
     setOrder([...order, orderToAdd]);
-    console.log(order);
     setCartProduct([]);
     closeCheckoutSideMenu();
   };
