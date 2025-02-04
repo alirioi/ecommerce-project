@@ -1,4 +1,5 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
+import { apiUrl } from '../Api';
 
 // eslint-disable-next-line
 export const ShoppingCartContext = createContext();
@@ -24,6 +25,22 @@ export const ShoppingCartProvider = ({ children }) => {
   // Shopping Cart - Order
   const [order, setOrder] = useState([]);
 
+  // Get Products
+  const [items, setItems] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/products`);
+        const data = await response.json();
+        setItems(data);
+      } catch (error) {
+        console.error(`Ha ocurrido un error al obtener los datos: ${error}`);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <ShoppingCartContext.Provider
       value={{
@@ -39,6 +56,8 @@ export const ShoppingCartProvider = ({ children }) => {
         closeCheckoutSideMenu,
         order,
         setOrder,
+        items,
+        setItems,
       }}
     >
       {children}

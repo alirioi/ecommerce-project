@@ -1,24 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useContext } from 'react';
+import { ShoppingCartContext } from '../../Context';
 import Layout from '../../Components/Layout';
 import Card from '../../Components/Card';
 import ProductDetail from '../../Components/ProductDetail';
-import { apiUrl } from '../../Api';
 
 function Home() {
-  const [items, setItems] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${apiUrl}/products`);
-        const data = await response.json();
-        setItems(data);
-      } catch (error) {
-        console.error(`Ha ocurrido un error al obtener los datos: ${error}`);
-      }
-    };
-    fetchData();
-  }, []);
+  const { items } = useContext(ShoppingCartContext);
 
   return (
     <Layout>
