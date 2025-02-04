@@ -6,8 +6,22 @@ import Card from '../../Components/Card';
 import ProductDetail from '../../Components/ProductDetail';
 
 function Home() {
-  const { items, searchByTitle, setSearchByTitle } =
+  const { items, searchByTitle, setSearchByTitle, filteredItems } =
     useContext(ShoppingCartContext);
+
+  const renderView = () => {
+    const itemsToRender = searchByTitle?.length > 0 ? filteredItems : items;
+
+    if (itemsToRender?.length > 0) {
+      return itemsToRender.map((item) => <Card key={item.id} data={item} />);
+    } else {
+      return (
+        <span className="text-center text-lg font-light absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          No products found
+        </span>
+      );
+    }
+  };
 
   return (
     <Layout>
@@ -23,10 +37,8 @@ function Home() {
           }}
         />
       </div>
-      <div className=" grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {items?.map((item) => (
-          <Card key={item.id} data={item} />
-        ))}
+      <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {renderView()}
       </div>
       <ProductDetail />
     </Layout>
