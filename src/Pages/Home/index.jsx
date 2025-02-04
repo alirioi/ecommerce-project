@@ -1,19 +1,37 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 import { ShoppingCartContext } from '../../Context';
 import Layout from '../../Components/Layout';
 import Card from '../../Components/Card';
 import ProductDetail from '../../Components/ProductDetail';
+import LoadingSkeleton from '../../Components/LoadingSkeleton';
 
 function Home() {
-  const { items, searchByTitle, setSearchByTitle, filteredItems } =
+  const { setSearchByTitle, filteredItems, setSearchByCategory, isLoading } =
     useContext(ShoppingCartContext);
 
-  const renderView = () => {
-    const itemsToRender = searchByTitle?.length > 0 ? filteredItems : items;
+  useEffect(() => {
+    return () => {
+      setSearchByTitle('');
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    if (itemsToRender?.length > 0) {
-      return itemsToRender.map((item) => <Card key={item.id} data={item} />);
+  const { category } = useParams();
+
+  useEffect(() => {
+    if (category?.length > 0) {
+      setSearchByCategory(category.toLowerCase());
+    } else if (category?.length === 0) {
+      setSearchByCategory('');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category]);
+
+  const renderView = () => {
+    if (filteredItems?.length > 0) {
+      return filteredItems.map((item) => <Card key={item.id} data={item} />);
     } else {
       return (
         <span className="text-center text-lg font-light absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -37,9 +55,13 @@ function Home() {
           }}
         />
       </div>
-      <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {renderView()}
-      </div>
+      {isLoading ? (
+        <LoadingSkeleton />
+      ) : (
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {renderView()}
+        </div>
+      )}
       <ProductDetail />
     </Layout>
   );

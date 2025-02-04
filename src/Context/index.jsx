@@ -16,6 +16,29 @@ export const ShoppingCartProvider = ({ children }) => {
   const openCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(true);
   const closeCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(false);
 
+  // Loading Skeleton
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Get Products
+  const [items, setItems] = useState(null);
+
+  // API - Get Products
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/products`);
+        const data = await response.json();
+        setItems(data);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 500);
+      } catch (error) {
+        console.error(`Ha ocurrido un error al obtener los datos: ${error}`);
+      }
+    };
+    fetchData();
+  }, []);
+
   // Product Detail - Show product
   const [productToShow, setProductToShow] = useState({});
 
@@ -25,36 +48,46 @@ export const ShoppingCartProvider = ({ children }) => {
   // Shopping Cart - Order
   const [order, setOrder] = useState([]);
 
-  // Get Products
-  const [items, setItems] = useState(null);
-  const [filteredItems, setFilteredItems] = useState(null);
-
   // Get Products - Search by title
   const [searchByTitle, setSearchByTitle] = useState('');
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${apiUrl}/products`);
-        const data = await response.json();
-        setItems(data);
-      } catch (error) {
-        console.error(`Ha ocurrido un error al obtener los datos: ${error}`);
-      }
-    };
-    fetchData();
-  }, []);
+  // Get Products - Search by category
+  const [searchByCategory, setSearchByCategory] = useState('');
 
-  const filteredItemsByTitle = (items, searchByTitle) => {
-    return items?.filter((item) =>
-      item.title.toLowerCase().includes(searchByTitle.toLowerCase())
+  // Get Filtered Products
+  const [filteredItems, setFilteredItems] = useState(null);
+
+  // Función genérica de filtrado
+  const filterItems = (items, { key, value }) => {
+    if (!items || !value) return items;
+
+    const searchValue = value.toLowerCase();
+
+    return items.filter((item) =>
+      item[key]?.toLowerCase().includes(searchValue)
     );
   };
 
+  // Función principal de filtrado combinado
+  const filteredBy = (items, title, category) => {
+    let result = items;
+
+    if (category) {
+      result = filterItems(result, { key: 'category', value: category });
+    }
+
+    if (title) {
+      result = filterItems(result, { key: 'title', value: title });
+    }
+
+    return result;
+  };
+
   useEffect(() => {
-    if (searchByTitle)
-      setFilteredItems(filteredItemsByTitle(items, searchByTitle));
-  }, [items, searchByTitle]);
+    setFilteredItems(filteredBy(items, searchByTitle, searchByCategory));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [items, searchByTitle, searchByCategory]);
 
   return (
     <ShoppingCartContext.Provider
@@ -76,6 +109,9 @@ export const ShoppingCartProvider = ({ children }) => {
         searchByTitle,
         setSearchByTitle,
         filteredItems,
+        searchByCategory,
+        setSearchByCategory,
+        isLoading,
       }}
     >
       {children}
