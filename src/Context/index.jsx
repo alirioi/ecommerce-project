@@ -28,6 +28,9 @@ export const ShoppingCartProvider = ({ children }) => {
   // Get Products
   const [items, setItems] = useState(null);
 
+  // Get Products - Search by title
+  const [searchByTitle, setSearchByTitle] = useState('');
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -58,6 +61,8 @@ export const ShoppingCartProvider = ({ children }) => {
         setOrder,
         items,
         setItems,
+        searchByTitle,
+        setSearchByTitle,
       }}
     >
       {children}
