@@ -41,7 +41,7 @@ const CheckoutSideMenu = () => {
     <aside
       className={`${
         isCheckoutSideMenuOpen ? 'flex' : 'hidden'
-      } top-[68px] w-[360px] h-[calc(100vh-68px)] flex-col fixed bg-white right-0 border shadow-md rounded-lg overflow-y-auto`}
+      } top-[68px] w-full sm:w-[360px] md:w-[360px] lg:w-[360px] xl:w-[360px] h-[calc(100vh-68px)] flex-col fixed bg-white right-0 border shadow-md rounded-lg overflow-y-auto`}
     >
       <div className="flex justify-between items-center p-6 pb-0">
         <h2 className="font-medium text-xl">My Order</h2>
@@ -71,7 +71,7 @@ const CheckoutSideMenu = () => {
       </div>
 
       {cartProducts.length > 0 ? (
-        <div className="fixed bottom-0 right-0 w-[360px] p-6 pt-3 bg-white border-t-2">
+        <div className="fixed bottom-0 right-0 w-full sm:w-[360px] md:w-[360px] lg:w-[360px] xl:w-[360px] p-6 pt-3 bg-white border-t-2">
           <p className="flex justify-between items-center">
             <span className="text-lg font-medium">Total:</span>
             <span className="text-xl font-bold">

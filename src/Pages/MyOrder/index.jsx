@@ -16,7 +16,7 @@ function MyOrder() {
 
   return (
     <Layout>
-      <div className="flex items-center justify-center relative w-80 mb-6">
+      <div className="flex items-center justify-center relative w-80 mb-6 mt-5">
         <Link to={'/my-orders'} className="absolute left-0">
           <ChevronLeftIcon className="size-6 text-black/70 cursor-pointer hover:text-black" />
         </Link>

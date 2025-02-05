@@ -39,6 +39,9 @@ export const ShoppingCartProvider = ({ children }) => {
     fetchData();
   }, []);
 
+  // Menu - Open/Close
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   // Product Detail - Show product
   const [productToShow, setProductToShow] = useState({});
 
@@ -112,6 +115,8 @@ export const ShoppingCartProvider = ({ children }) => {
         searchByCategory,
         setSearchByCategory,
         isLoading,
+        isMenuOpen,
+        setIsMenuOpen,
       }}
     >
       {children}
