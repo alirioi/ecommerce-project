@@ -10,13 +10,13 @@ const ProductDetail = () => {
     <aside
       className={`${
         isProductDetailOpen ? 'flex' : 'hidden'
-      } top-[68px] w-full sm:w-[360px] md:w-[360px] lg:w-[360px] xl:w-[360px] h-[calc(100vh-68px)] flex-col fixed bg-white right-0 border shadow-md rounded-lg overflow-y-auto`}
+      } top-[84px] sm:top-[74px] md:top-[74px] lg:top-[74px] xl:top-[74px] w-full sm:w-[360px] md:w-[360px] lg:w-[360px] xl:w-[360px] h-[calc(100vh-84px)] sm:h-[calc(100vh-74px)] md:h-[calc(100vh-74px)] lg:h-[calc(100vh-74px)] xl:h-[calc(100vh-74px)] flex-col fixed bg-white text-green-950 right-0 border shadow-md rounded-lg overflow-y-auto`}
     >
       <div className="flex justify-between items-center p-6">
-        <h2 className="font-medium text-xl">Details</h2>
+        <h2 className="font-semibold text-xl">Details</h2>
         <div>
           <XMarkIcon
-            className="text-black/70 size-6 cursor-pointer hover:text-black"
+            className="text-green-800 size-6 cursor-pointer hover:text-green-950"
             onClick={() => closeProductDetail()}
           />
         </div>
@@ -30,7 +30,7 @@ const ProductDetail = () => {
         />
       </figure>
       <p className="flex flex-col p-6">
-        <span className="font-medium text-2xl mb-2">
+        <span className="font-semibold text-2xl mb-2">
           ${productToShow.price}
         </span>
         <span className="font-medium text-md mb-2">{productToShow.title}</span>

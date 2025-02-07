@@ -43,13 +43,15 @@ function Home() {
 
   return (
     <Layout>
-      <h1 className="text-2xl font-bold mt-5">Exclusive Products</h1>
+      <h1 className="text-2xl font-bold mt-5 text-green-950">
+        Exclusive Products
+      </h1>
       <div className="w-72 md:w-80 lg:w-96 relative flex items-center justify-between mt-5 mb-20">
-        <MagnifyingGlassIcon className="absolute left-2 size-6 text-black/40" />
+        <MagnifyingGlassIcon className="absolute left-2 size-6 text-green-500" />
         <input
           type="text"
           placeholder="Search a product..."
-          className="w-full bg-white border border-black/40 rounded-lg py-2 pl-10 text-black/70 outline-none"
+          className="w-full bg-white border border-green-500 rounded-lg py-2 pl-10 text-green-950 outline-none placeholder:text-green-500"
           onChange={(event) => {
             setSearchByTitle(event.target.value);
           }}

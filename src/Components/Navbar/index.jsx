@@ -6,6 +6,7 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/solid';
 import { ShoppingCartContext } from '../../Context';
+import logo from '../../assets/logo.svg';
 
 const Navbar = () => {
   const {
@@ -20,7 +21,7 @@ const Navbar = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <nav className="flex flex-wrap items-center justify-between fixed z-50 top-0 w-full py-5 px-4 sm:px-8 text-md font-light bg-white shadow-md">
+    <nav className="flex flex-wrap items-center justify-between fixed z-50 top-0 w-full py-5 px-4 sm:px-8 text-sm font-light bg-green-400 shadow-md text-green-950">
       {/* Logo y Menú */}
       <div className="flex items-center justify-between w-full md:w-auto">
         <NavLink
@@ -29,15 +30,18 @@ const Navbar = () => {
             setSearchByCategory('');
             setIsMenuOpen(false);
           }}
-          className="font-semibold text-lg hover:text-gray-700"
         >
-          Shopi
+          <img
+            src={logo}
+            alt="Logo"
+            className="h-7 drop-shadow-lg brightness-150"
+          />
         </NavLink>
 
         <div className="flex gap-2 items-center">
           {/* Botón del carrito */}
           <button
-            className="flex gap-1 items-center p-2 md:hidden rounded-lg hover:bg-gray-100"
+            className="flex gap-2 items-end p-2 md:hidden rounded-lg hover:bg-green-200"
             aria-label="Shopping Cart"
             onClick={() => {
               openCheckoutSideMenu();
@@ -45,13 +49,13 @@ const Navbar = () => {
             }}
           >
             <ShoppingBagIcon className="size-6" />
-            <div className="text-sm text-black">{cartProducts.length}</div>
+            <span className="font-semibold">{cartProducts.length}</span>
           </button>
 
           {/* Botón Menú */}
           <button
             onClick={toggleMenu}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100"
+            className="md:hidden p-2 rounded-lg hover:bg-green-200"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? (
@@ -91,7 +95,7 @@ const Navbar = () => {
 
         {/* Sección derecha Desktop */}
         <ul className="flex items-center gap-4 text-nowrap">
-          <li className="text-black/55 truncate max-w-[120px]">
+          <li className="text-green-800 truncate max-w-[120px]">
             alirio@platzi.com
           </li>
           {['My Orders', 'My Account', 'Sign In'].map((item) => (
@@ -106,12 +110,12 @@ const Navbar = () => {
               </NavLink>
             </li>
           ))}
-          <li className="flex gap-2 items-end">
+          <li className="flex gap-2 items-center border border-green-800 rounded-lg py-1 px-2">
             <ShoppingBagIcon
-              className="text-black/70 size-6 cursor-pointer hover:text-black"
+              className="text-green-900 size-6 cursor-pointer hover:text-green-950"
               onClick={() => openCheckoutSideMenu()}
             />
-            <div className="text-sm">{cartProducts.length}</div>
+            <div className="font-semibold">{cartProducts.length}</div>
           </li>
         </ul>
       </div>
@@ -136,7 +140,7 @@ const Navbar = () => {
                       setIsMenuOpen(false);
                     }}
                     className={({ isActive }) =>
-                      `block py-2 hover:bg-gray-50 ${
+                      `block p-2 hover:bg-green-200 rounded-lg ${
                         isActive ? activeStyle : ''
                       }`
                     }
@@ -149,18 +153,15 @@ const Navbar = () => {
 
             {/* Sección usuario */}
             <ul className="flex flex-col items-center gap-1 w-full pt-4 border-t">
-              <li className="flex gap-3 text-black/55 items-end place-self-end">
+              <li className="text-green-800 place-self-end p-2">
                 alirio@platzi.com
               </li>
-              {/* <li className="flex gap-2 items-end">
-                
-              </li> */}
               {['My Orders', 'My Account', 'Sign In'].map((item) => (
                 <li key={item} className="w-full">
                   <NavLink
                     to={`/${item.toLowerCase().replace(' ', '-')}`}
                     onClick={() => setIsMenuOpen(false)}
-                    className="block py-2 hover:bg-gray-50"
+                    className="block p-2 hover:bg-green-200 rounded-lg"
                   >
                     {item}
                   </NavLink>

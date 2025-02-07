@@ -6,7 +6,7 @@ const OrderCard = (props) => {
 
   return (
     <div
-      className={`flex gap-3 justify-between items-center ${
+      className={`flex gap-3 justify-between items-center text-green-950 ${
         myOrderStyle || 'px-4 py-2 mb-2 hover:shadow-lg'
       }`}
     >
@@ -25,7 +25,7 @@ const OrderCard = (props) => {
         <p className="text-lg font-medium">${price}</p>
         {handleDelete && (
           <TrashIcon
-            className="text-black/70 size-4 cursor-pointer hover:text-black"
+            className="text-green-800 size-4 cursor-pointer hover:text-green-950"
             onClick={() => handleDelete(id)}
           />
         )}

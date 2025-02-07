@@ -37,14 +37,14 @@ const Card = ({ data }) => {
     if (isInCart) {
       return (
         <CheckCircleIcon
-          className="absolute top-1 right-1 flex justify-center items-center size-6 text-black"
+          className="absolute top-1 right-1 flex justify-center items-center size-6 text-green-950"
           onClick={(e) => e.stopPropagation()}
         />
       );
     } else {
       return (
         <PlusCircleIcon
-          className="absolute top-1 right-1 flex justify-center items-center size-6 text-black/70 hover:text-black"
+          className="absolute top-1 right-1 flex justify-center items-center size-6 text-green-800 hover:text-green-950"
           onClick={(event) => addProductToCart(event, data)}
         />
       );
@@ -53,11 +53,11 @@ const Card = ({ data }) => {
 
   return (
     <div
-      className="bg-white cursor-pointer w-44 h-56 sm:w-56 sm:h-64 rounded-lg mb-6 shadow-md hover:shadow-2xl"
+      className="bg-white cursor-pointer w-44 h-56 sm:w-56 sm:h-64 rounded-lg mb-6 shadow-md hover:shadow-2xl text-green-950"
       onClick={() => showProduct(data)}
     >
       <figure className="relative mb-2 w-full h-4/5 px-2">
-        <span className="first-letter:uppercase absolute bottom-0 left-0 bg-black/60 rounded-lg text-white text-xs m-2 px-3 py-0.5">
+        <span className="first-letter:uppercase absolute bottom-0 left-0 bg-green-700 rounded-lg text-white text-xs m-2 px-3 py-0.5">
           {category}
         </span>
         <img

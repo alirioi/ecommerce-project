@@ -7,7 +7,7 @@ const OrdersCard = (props) => {
   const { date, totalPrice, totalProducts } = props;
 
   return (
-    <div className="flex items-center justify-between w-80 p-4 rounded-lg border border-black/40 hover:border-black hover:shadow-lg">
+    <div className="flex items-center justify-between w-80 p-4 rounded-lg border text-green-950 border-green-500 hover:border-green-950 hover:shadow-lg">
       <div className="flex flex-col gap-2">
         <p className="flex text-md">
           <CalendarDaysIcon className="size-6 mr-2" />
