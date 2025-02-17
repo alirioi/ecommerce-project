@@ -4,8 +4,36 @@ import { apiUrl } from '../Api';
 // eslint-disable-next-line
 export const ShoppingCartContext = createContext();
 
+// eslint-disable-next-line
+export const initializeLocalStorage = () => {
+  const accountInLocalStorage = localStorage.getItem('account');
+  const signOutInLocalStorage = localStorage.getItem('sign-out');
+  let parsedAccount;
+  let parsedSignOut;
+
+  if (!accountInLocalStorage) {
+    localStorage.setItem('account', JSON.stringify({}));
+    parsedAccount = {};
+  } else {
+    parsedAccount = JSON.parse(accountInLocalStorage);
+  }
+
+  if (!signOutInLocalStorage) {
+    localStorage.setItem('sign-out', JSON.stringify(false));
+    parsedSignOut = false;
+  } else {
+    parsedSignOut = JSON.parse(signOutInLocalStorage);
+  }
+};
+
 // eslint-disable-next-line react/prop-types
 export const ShoppingCartProvider = ({ children }) => {
+  // My Account
+  const [account, setAccount] = useState({});
+
+  // Sign Out
+  const [signOut, setSignOut] = useState(false);
+
   // Product Detail - Open/Close
   const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
   const openProductDetail = () => setIsProductDetailOpen(true);
@@ -117,6 +145,10 @@ export const ShoppingCartProvider = ({ children }) => {
         isLoading,
         isMenuOpen,
         setIsMenuOpen,
+        account,
+        setAccount,
+        signOut,
+        setSignOut,
       }}
     >
       {children}
