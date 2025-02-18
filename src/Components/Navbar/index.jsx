@@ -15,16 +15,111 @@ const Navbar = () => {
     setSearchByCategory,
     isMenuOpen,
     setIsMenuOpen,
+    signOut,
     setSignOut,
   } = useContext(ShoppingCartContext);
   const activeStyle = 'underline underline-offset-4';
 
+  // Menu Mobile
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  // Sign Out
+  const signOutLocalStorage = localStorage.getItem('sign-out');
+  const parsedSignOut = JSON.parse(signOutLocalStorage);
+  const isUserSignOut = signOut || parsedSignOut;
 
   const handleSignOut = () => {
     const stringifiedSignOut = JSON.stringify(true);
     localStorage.setItem('sign-out', stringifiedSignOut);
     setSignOut(true);
+  };
+
+  const renderView = () => {
+    return isUserSignOut ? (
+      <li>
+        <NavLink
+          to="/sign-in"
+          className={({ isActive }) =>
+            `hover:text-gray-700 ${isActive ? activeStyle : ''}`
+          }
+          // onClick={() => }
+        >
+          Sign In
+        </NavLink>
+      </li>
+    ) : (
+      <>
+        <li className="text-green-800 truncate max-w-[120px]">
+          alirio@platzi.com
+        </li>
+        {['My Orders', 'My Account'].map((item) => (
+          <li key={item}>
+            <NavLink
+              to={`/${item.toLowerCase().replace(' ', '-')}`}
+              className={({ isActive }) =>
+                `hover:text-gray-700 ${isActive ? activeStyle : ''}`
+              }
+            >
+              {item}
+            </NavLink>
+          </li>
+        ))}
+        <li key="Sign Out">
+          <NavLink
+            to="/sign-in"
+            className={({ isActive }) =>
+              `hover:text-gray-700 ${isActive ? activeStyle : ''}`
+            }
+            onClick={() => handleSignOut()}
+          >
+            Sign Out
+          </NavLink>
+        </li>
+      </>
+    );
+  };
+
+  const renderViewMobile = () => {
+    return isUserSignOut ? (
+      <li key="Sign Out" className="w-full">
+        <NavLink
+          to="/sign-in"
+          onClick={() => {
+            setIsMenuOpen(false);
+          }}
+          className="block p-2 hover:bg-green-200 rounded-lg"
+        >
+          Sign In
+        </NavLink>
+      </li>
+    ) : (
+      <>
+        <li className="text-green-800 place-self-end p-2">alirio@platzi.com</li>
+        {['My Orders', 'My Account'].map((item) => (
+          <li key={item} className="w-full">
+            <NavLink
+              to={`/${item.toLowerCase().replace(' ', '-')}`}
+              onClick={() => setIsMenuOpen(false)}
+              className="block p-2 hover:bg-green-200 rounded-lg"
+            >
+              {item}
+            </NavLink>
+          </li>
+        ))}
+        <li key="Sign Out" className="w-full">
+          <NavLink
+            to="/sign-in"
+            onClick={() => {
+              setIsMenuOpen(false);
+              handleSignOut();
+            }}
+            className="block p-2 hover:bg-green-200 rounded-lg"
+          >
+            Sign Out
+          </NavLink>
+        </li>
+      </>
+    );
   };
 
   return (
@@ -102,32 +197,7 @@ const Navbar = () => {
 
         {/* Sección derecha Desktop */}
         <ul className="flex items-center gap-4 text-nowrap">
-          <li className="text-green-800 truncate max-w-[120px]">
-            alirio@platzi.com
-          </li>
-          {['My Orders', 'My Account'].map((item) => (
-            <li key={item}>
-              <NavLink
-                to={`/${item.toLowerCase().replace(' ', '-')}`}
-                className={({ isActive }) =>
-                  `hover:text-gray-700 ${isActive ? activeStyle : ''}`
-                }
-              >
-                {item}
-              </NavLink>
-            </li>
-          ))}
-          <li key="Sign Out">
-            <NavLink
-              to="/sign-in"
-              className={({ isActive }) =>
-                `hover:text-gray-700 ${isActive ? activeStyle : ''}`
-              }
-              onClick={() => handleSignOut()}
-            >
-              Sign Out
-            </NavLink>
-          </li>
+          {renderView()}
 
           <li className="flex gap-2 items-center border border-green-800 rounded-lg py-1 px-2">
             <ShoppingBagIcon
@@ -142,7 +212,7 @@ const Navbar = () => {
       {/* Menú Móvil */}
       {isMenuOpen && (
         <div className="w-full md:hidden mt-4">
-          <div className="flex flex-col pt-4 space-y-4 border-t text-end">
+          <div className="flex flex-col pt-4 space-y-4 border-t border-green-300 text-end">
             {/* Sección de navegación */}
             <ul className="flex flex-col items-end gap-1 w-full">
               {[
@@ -171,33 +241,8 @@ const Navbar = () => {
             </ul>
 
             {/* Sección usuario */}
-            <ul className="flex flex-col items-center gap-1 w-full pt-4 border-t">
-              <li className="text-green-800 place-self-end p-2">
-                alirio@platzi.com
-              </li>
-              {['My Orders', 'My Account'].map((item) => (
-                <li key={item} className="w-full">
-                  <NavLink
-                    to={`/${item.toLowerCase().replace(' ', '-')}`}
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block p-2 hover:bg-green-200 rounded-lg"
-                  >
-                    {item}
-                  </NavLink>
-                </li>
-              ))}
-              <li key="Sign Out" className="w-full">
-                <NavLink
-                  to="/sign-in"
-                  onClick={() => {
-                    setIsMenuOpen(false);
-                    handleSignOut();
-                  }}
-                  className="block p-2 hover:bg-green-200 rounded-lg"
-                >
-                  Sign Out
-                </NavLink>
-              </li>
+            <ul className="flex flex-col items-center gap-1 w-full pt-4 border-t border-green-300">
+              {renderViewMobile()}
             </ul>
           </div>
         </div>
