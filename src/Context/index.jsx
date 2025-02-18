@@ -1,25 +1,26 @@
 import { createContext, useState, useEffect } from 'react';
 import { apiUrl } from '../Api';
+import { Storage } from '../Utils';
 
 // eslint-disable-next-line
 export const ShoppingCartContext = createContext();
 
 // eslint-disable-next-line
 export const initializeLocalStorage = () => {
-  const accountInLocalStorage = localStorage.getItem('account');
-  const signOutInLocalStorage = localStorage.getItem('sign-out');
+  const accountInLocalStorage = Storage.getItem_('account');
+  const signOutInLocalStorage = Storage.getItem_('sign-out');
   let parsedAccount;
   let parsedSignOut;
 
   if (!accountInLocalStorage) {
-    localStorage.setItem('account', JSON.stringify({}));
+    Storage.setItem('account', {});
     parsedAccount = {};
   } else {
     parsedAccount = JSON.parse(accountInLocalStorage);
   }
 
   if (!signOutInLocalStorage) {
-    localStorage.setItem('sign-out', JSON.stringify(false));
+    Storage.setItem('sign-out', false);
     parsedSignOut = false;
   } else {
     parsedSignOut = JSON.parse(signOutInLocalStorage);
