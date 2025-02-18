@@ -1,14 +1,14 @@
 import { createContext, useState, useEffect } from 'react';
 import { apiUrl } from '../Api';
-import { Storage } from '../Utils';
+import { Storage } from '../Utils/Storage';
 
 // eslint-disable-next-line
 export const ShoppingCartContext = createContext();
 
 // eslint-disable-next-line
 export const initializeLocalStorage = () => {
-  const accountInLocalStorage = Storage.getItem_('account');
-  const signOutInLocalStorage = Storage.getItem_('sign-out');
+  const accountInLocalStorage = Storage.getItem('account');
+  const signOutInLocalStorage = Storage.getItem('sign-out');
   let parsedAccount;
   let parsedSignOut;
 
