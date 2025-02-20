@@ -33,7 +33,7 @@ export const ShoppingCartProvider = ({ children }) => {
   const [account, setAccount] = useState({});
 
   // Sign Out
-  const [signOut, setSignOut] = useState(false);
+  const [signOut, setSignOut] = useState(true);
 
   // Product Detail - Open/Close
   const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);

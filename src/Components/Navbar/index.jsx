@@ -7,6 +7,7 @@ import {
 } from '@heroicons/react/24/solid';
 import { ShoppingCartContext } from '../../Context';
 import logo from '../../assets/logo.svg';
+import { Storage } from '../../Utils/Storage';
 
 const Navbar = () => {
   const {
@@ -17,6 +18,7 @@ const Navbar = () => {
     setIsMenuOpen,
     signOut,
     setSignOut,
+    account,
   } = useContext(ShoppingCartContext);
   const activeStyle = 'underline underline-offset-4';
 
@@ -24,13 +26,11 @@ const Navbar = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   // Sign Out
-  const signOutLocalStorage = localStorage.getItem('sign-out');
-  const parsedSignOut = JSON.parse(signOutLocalStorage);
+  const parsedSignOut = Storage.getItem('sign-out');
   const isUserSignOut = signOut || parsedSignOut;
 
   const handleSignOut = () => {
-    const stringifiedSignOut = JSON.stringify(true);
-    localStorage.setItem('sign-out', stringifiedSignOut);
+    Storage.setItem('sign-out', true);
     setSignOut(true);
   };
 
@@ -42,7 +42,7 @@ const Navbar = () => {
           className={({ isActive }) =>
             `hover:text-gray-700 ${isActive ? activeStyle : ''}`
           }
-          // onClick={() => }
+          onClick={() => handleSignOut()}
         >
           Sign In
         </NavLink>
@@ -50,7 +50,7 @@ const Navbar = () => {
     ) : (
       <>
         <li className="text-green-800 truncate max-w-[120px]">
-          alirio@platzi.com
+          {account?.email}
         </li>
         {['My Orders', 'My Account'].map((item) => (
           <li key={item}>
@@ -86,6 +86,7 @@ const Navbar = () => {
           to="/sign-in"
           onClick={() => {
             setIsMenuOpen(false);
+            handleSignOut();
           }}
           className="block p-2 hover:bg-green-200 rounded-lg"
         >
@@ -94,7 +95,7 @@ const Navbar = () => {
       </li>
     ) : (
       <>
-        <li className="text-green-800 place-self-end p-2">alirio@platzi.com</li>
+        <li className="text-green-800 place-self-end p-2">{account?.email}</li>
         {['My Orders', 'My Account'].map((item) => (
           <li key={item} className="w-full">
             <NavLink

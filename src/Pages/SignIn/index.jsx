@@ -1,26 +1,33 @@
 import { useContext, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { ShoppingCartContext } from '../../Context';
 import Layout from '../../Components/Layout';
 import { Storage } from '../../Utils/Storage';
 
 function SignIn() {
-  const { account } = useContext(ShoppingCartContext);
+  const { account, setSignOut, setAccount } = useContext(ShoppingCartContext);
   const [view, setView] = useState('user-info');
   const form = useRef(null);
 
   // Account
-  const accountEmail = Storage.getItem('account');
-  const parsedAccount = JSON.parse(accountEmail);
+  const accountParsed = Storage.getItem('account');
 
   // Has an account
-  const noAccountInLocalStorage = parsedAccount
-    ? Object.keys(parsedAccount).length === 0
+  const noAccountInLocalStorage = accountParsed
+    ? Object.keys(accountParsed).length === 0
     : true;
   const noAccountInLocalState = account
     ? Object.keys(account).length === 0
     : true;
   const hasUserAnAccount = !noAccountInLocalStorage || !noAccountInLocalState;
+
+  const handleSignIn = () => {
+    Storage.setItem('sign-out', false);
+    setSignOut(false);
+
+    // Redirect to home page
+    return <Navigate replace to={'/'} />;
+  };
 
   const createAnAccount = () => {
     const formData = new FormData(form.current);
@@ -29,26 +36,36 @@ function SignIn() {
       email: formData.get('email'),
       password: formData.get('password'),
     };
-    //TODO: Remove this console.log
-    console.log(data);
+
+    // Create Account
+    Storage.setItem('account', data);
+    setAccount(data);
+
+    // Sign In
+    handleSignIn();
   };
 
   const renderLogIn = () => {
     return (
       <div className="flex flex-col gap-4 mt-10 w-80">
-        <p>
+        <p className="w-full flex gap-2 items-center justify-between">
           <span className="text-sm text-green-950 font-semibold">Email: </span>
-          <span>{parsedAccount?.email}</span>
-        </p>
-        <p className="mb-6">
-          <span className="text-sm text-green-950 font-semibold">
-            Password:{' '}
+          <span className="block text-sm text-green-950 bg-green-200 px-4 py-2 rounded-lg w-3/4 h-[36px] truncate">
+            {accountParsed?.email}
           </span>
-          <span>{parsedAccount?.password}</span>
+        </p>
+        <p className="w-full flex gap-2 items-center mb-6 justify-between">
+          <span className="text-sm text-green-950 font-semibold">
+            Password:
+          </span>
+          <span className="block text-sm text-green-950 bg-green-200 px-4 py-2 rounded-lg w-3/4 h-[36px] truncate">
+            {accountParsed?.password}
+          </span>
         </p>
         <Link to="/">
           <button
             className="bg-green-950 text-white rounded-lg px-4 py-2 w-full font-semibold disabled:bg-black/40"
+            onClick={() => handleSignIn()}
             disabled={!hasUserAnAccount}
           >
             Log In
@@ -79,7 +96,7 @@ function SignIn() {
             type="text"
             id="name"
             name="name"
-            defaultValue={parsedAccount?.name}
+            defaultValue={accountParsed?.name}
             placeholder="Peter"
             className="border border-green-950 rounded-lg w-full py-2 px-4 text-sm outline-none placeholder:font-light"
             required
@@ -93,7 +110,7 @@ function SignIn() {
             type="text"
             id="email"
             name="email"
-            defaultValue={parsedAccount?.email}
+            defaultValue={accountParsed?.email}
             placeholder="hi@example.com"
             className="border border-green-950 rounded-lg w-full py-2 px-4 text-sm outline-none placeholder:font-light"
             required
@@ -107,7 +124,7 @@ function SignIn() {
             type="password"
             id="password"
             name="password"
-            defaultValue={parsedAccount?.password}
+            defaultValue={accountParsed?.password}
             placeholder="********"
             className="border border-green-950 rounded-lg w-full py-2 px-4 text-sm outline-none"
             required
