@@ -5,21 +5,17 @@ import Layout from '../../Components/Layout';
 import { Storage } from '../../Utils/Storage';
 
 function SignIn() {
-  const { account, setSignOut, setAccount } = useContext(ShoppingCartContext);
+  const { setSignOut, setAccount, hasAnAccount } =
+    useContext(ShoppingCartContext);
   const [view, setView] = useState('user-info');
   const form = useRef(null);
 
   // Account
-  const accountParsed = Storage.getItem('account');
+  const { accountParsed } = hasAnAccount();
 
   // Has an account
-  const noAccountInLocalStorage = accountParsed
-    ? Object.keys(accountParsed).length === 0
-    : true;
-  const noAccountInLocalState = account
-    ? Object.keys(account).length === 0
-    : true;
-  const hasUserAnAccount = !noAccountInLocalStorage || !noAccountInLocalState;
+
+  const { hasUserAnAccount } = hasAnAccount();
 
   const handleSignIn = () => {
     Storage.setItem('sign-out', false);

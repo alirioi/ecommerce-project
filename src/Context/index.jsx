@@ -35,6 +35,22 @@ export const ShoppingCartProvider = ({ children }) => {
   // Sign Out
   const [signOut, setSignOut] = useState(true);
 
+  // Has an account
+  const hasAnAccount = () => {
+    const accountParsed = Storage.getItem('account');
+    const noAccountInLocalStorage = accountParsed
+      ? Object.keys(accountParsed).length === 0
+      : true;
+    const noAccountInLocalState = account
+      ? Object.keys(account).length === 0
+      : true;
+    const hasUserAnAccount = !noAccountInLocalStorage || !noAccountInLocalState;
+    return {
+      accountParsed: accountParsed,
+      hasUserAnAccount: hasUserAnAccount,
+    };
+  };
+
   // Product Detail - Open/Close
   const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
   const openProductDetail = () => setIsProductDetailOpen(true);
@@ -150,6 +166,7 @@ export const ShoppingCartProvider = ({ children }) => {
         setAccount,
         signOut,
         setSignOut,
+        hasAnAccount,
       }}
     >
       {children}
