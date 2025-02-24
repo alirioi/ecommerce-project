@@ -1,18 +1,13 @@
 import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-import {
-  ShoppingBagIcon,
-  Bars3Icon,
-  XMarkIcon,
-} from '@heroicons/react/24/solid';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
 import { ShoppingCartContext } from '../../Context';
+import ShoppingCart from '../ShoppingCart';
 import logo from '../../assets/logo.svg';
 import { Storage } from '../../Utils/Storage';
 
 const Navbar = () => {
   const {
-    cartProducts,
-    openCheckoutSideMenu,
     setSearchByCategory,
     isMenuOpen,
     setIsMenuOpen,
@@ -140,20 +135,11 @@ const Navbar = () => {
           />
         </NavLink>
 
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-4 items-center">
           {/* Botón del carrito */}
-          <button
-            className="flex gap-2 items-end p-2 md:hidden rounded-lg hover:bg-green-200"
-            aria-label="Shopping Cart"
-            onClick={() => {
-              openCheckoutSideMenu();
-              setIsMenuOpen(false);
-            }}
-          >
-            <ShoppingBagIcon className="size-6" />
-            <span className="font-semibold">{cartProducts.length}</span>
-          </button>
-
+          <div className="md:hidden p-2">
+            <ShoppingCart />
+          </div>
           {/* Botón Menú */}
           <button
             onClick={toggleMenu}
@@ -198,13 +184,8 @@ const Navbar = () => {
         {/* Sección derecha Desktop */}
         <ul className="flex items-center gap-4 text-nowrap">
           {renderView()}
-
-          <li className="flex gap-2 items-center border border-green-800 rounded-lg py-1 px-2">
-            <ShoppingBagIcon
-              className="text-green-900 size-6 cursor-pointer hover:text-green-950"
-              onClick={() => openCheckoutSideMenu()}
-            />
-            <div className="font-semibold">{cartProducts.length}</div>
+          <li>
+            <ShoppingCart />
           </li>
         </ul>
       </div>
