@@ -14,6 +14,7 @@ const CheckoutSideMenu = () => {
     setCartProduct,
     order,
     setOrder,
+    signOut,
   } = useContext(ShoppingCartContext);
 
   const handleDelete = (id) => {
@@ -78,10 +79,10 @@ const CheckoutSideMenu = () => {
               ${totalPrice(cartProducts)}
             </span>
           </p>
-          <Link to="/my-orders/last">
+          <Link to={signOut ? `/sign-in` : `/my-orders/last`}>
             <button
               className="w-full mt-4 bg-green-800 hover:bg-green-950 text-white font-medium px-4 py-2 rounded-lg"
-              onClick={handleCheckout}
+              onClick={signOut ? closeCheckoutSideMenu : handleCheckout}
             >
               Checkout
             </button>

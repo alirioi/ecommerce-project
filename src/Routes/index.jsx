@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { useRoutes } from 'react-router-dom';
+import { useRoutes, Navigate } from 'react-router-dom';
 import { ShoppingCartContext } from '../Context';
 
 import Home from '../Pages/Home';
@@ -10,14 +10,49 @@ import NotFound from '../Pages/NotFound';
 import SignIn from '../Pages/SignIn';
 
 export const AppRoutes = () => {
-  const { signOut } = useContext(ShoppingCartContext);
+  const { signOut, hasAnAccount } = useContext(ShoppingCartContext);
+  const { hasUserAnAccount } = hasAnAccount();
+  const isUserSignOut = signOut;
+
   return useRoutes([
     { path: '/', element: <Home /> },
     { path: '/:category', element: <Home /> },
-    { path: '/my-account', element: <MyAccount /> },
-    { path: '/my-orders', element: <MyOrders /> },
-    { path: '/my-orders/last', element: <MyOrder /> },
-    { path: '/my-orders/:id', element: <MyOrder /> },
+    {
+      path: '/my-account',
+      element:
+        hasUserAnAccount && !isUserSignOut ? (
+          <MyAccount />
+        ) : (
+          <Navigate replace to={'/sign-in'} />
+        ),
+    },
+    {
+      path: '/my-orders',
+      element:
+        hasUserAnAccount && !isUserSignOut ? (
+          <MyOrders />
+        ) : (
+          <Navigate replace to={'/sign-in'} />
+        ),
+    },
+    {
+      path: '/my-orders/last',
+      element:
+        hasUserAnAccount && !isUserSignOut ? (
+          <MyOrder />
+        ) : (
+          <Navigate replace to={'/sign-in'} />
+        ),
+    },
+    {
+      path: '/my-orders/:id',
+      element:
+        hasUserAnAccount && !isUserSignOut ? (
+          <MyOrder />
+        ) : (
+          <Navigate replace to={'/sign-in'} />
+        ),
+    },
     { path: '/sign-in', element: <SignIn /> },
     { path: '/*', element: <NotFound /> },
   ]);
