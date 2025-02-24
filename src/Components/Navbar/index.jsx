@@ -26,8 +26,7 @@ const Navbar = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   // Sign Out
-  const parsedSignOut = Storage.getItem('sign-out');
-  const isUserSignOut = signOut || parsedSignOut;
+  const isUserSignOut = signOut;
 
   const handleSignOut = () => {
     Storage.setItem('sign-out', true);

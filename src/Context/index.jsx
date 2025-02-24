@@ -9,31 +9,34 @@ export const ShoppingCartContext = createContext();
 export const initializeLocalStorage = () => {
   const accountInLocalStorage = Storage.getItem('account');
   const signOutInLocalStorage = Storage.getItem('sign-out');
-  let parsedAccount;
-  let parsedSignOut;
+  let parsedAccount = null;
+  let parsedSignOut = true;
 
   if (!accountInLocalStorage) {
-    Storage.setItem('account', {});
-    parsedAccount = {};
+    Storage.setItem('account', parsedAccount);
   } else {
-    parsedAccount = JSON.parse(accountInLocalStorage);
+    parsedAccount = accountInLocalStorage;
   }
 
-  if (!signOutInLocalStorage) {
-    Storage.setItem('sign-out', false);
-    parsedSignOut = false;
+  if (signOutInLocalStorage !== null) {
+    parsedSignOut = signOutInLocalStorage;
   } else {
-    parsedSignOut = JSON.parse(signOutInLocalStorage);
+    Storage.setItem('sign-out', parsedSignOut);
   }
+
+  return { parsedAccount, parsedSignOut };
 };
 
 // eslint-disable-next-line react/prop-types
 export const ShoppingCartProvider = ({ children }) => {
+  // Local Storage
+  const { parsedAccount, parsedSignOut } = initializeLocalStorage();
+
   // My Account
-  const [account, setAccount] = useState({});
+  const [account, setAccount] = useState(parsedAccount || {});
 
   // Sign Out
-  const [signOut, setSignOut] = useState(true);
+  const [signOut, setSignOut] = useState(parsedSignOut);
 
   // Has an account
   const hasAnAccount = () => {
