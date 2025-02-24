@@ -118,7 +118,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex flex-wrap items-center justify-between fixed z-50 top-0 w-full py-5 px-4 sm:px-8 text-sm font-light bg-green-400 shadow-md text-green-950">
+    <nav className="flex flex-wrap items-center justify-between fixed z-50 top-0 w-full py-5 px-8 md:px-2 lg:px-8 text-sm font-light bg-green-400 shadow-md text-green-950">
       {/* Logo y Menú */}
       <div className="flex items-center justify-between w-full md:w-auto">
         <NavLink
@@ -131,7 +131,7 @@ const Navbar = () => {
           <img
             src={logo}
             alt="Logo"
-            className="h-7 drop-shadow-lg brightness-150"
+            className="h-7 md:h-6 lg:h-7 drop-shadow-lg brightness-150"
           />
         </NavLink>
 
@@ -156,7 +156,7 @@ const Navbar = () => {
       </div>
 
       {/* Menú Desktop */}
-      <div className="hidden md:flex flex-1 justify-between items-center">
+      <div className="hidden md:flex text-xs lg:text-sm flex-1 justify-between items-center">
         <ul className="flex items-center gap-4 ml-4">
           {[
             { to: '/', text: 'All' },

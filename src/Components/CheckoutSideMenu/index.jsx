@@ -42,7 +42,7 @@ const CheckoutSideMenu = () => {
     <aside
       className={`${
         isCheckoutSideMenuOpen ? 'flex' : 'hidden'
-      } top-[84px] sm:top-[74px] md:top-[74px] lg:top-[74px] xl:top-[74px] w-full sm:w-[360px] md:w-[360px] lg:w-[360px] xl:w-[360px] h-[calc(100vh-84px)] sm:h-[calc(100vh-74px)] md:h-[calc(100vh-74px)] lg:h-[calc(100vh-74px)] xl:h-[calc(100vh-74px)] flex-col fixed bg-white text-green-950 right-0 border shadow-md rounded-lg overflow-y-auto`}
+      } top-[84px] md:top-[64px] lg:top-[68px] xl:top-[68px] w-full sm:w-[360px] md:w-[360px] lg:w-[360px] xl:w-[360px] h-[calc(100vh-84px)] sm:h-[calc(100vh-68px)] md:h-[calc(100vh-64px)] lg:h-[calc(100vh-68px)] xl:h-[calc(100vh-68px)] flex-col fixed bg-white text-green-950 right-0 border shadow-md rounded-lg overflow-y-auto`}
     >
       <div className="flex justify-between items-center p-6 pb-0">
         <h2 className="font-semibold text-xl">My Order</h2>
