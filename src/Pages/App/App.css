@@ -6,4 +6,10 @@
 
 * {
   font-family: 'Poppins', sans-serif;
+  scrollbar-width: none; /* Firefox */
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #166534 #ffffff;
 }
