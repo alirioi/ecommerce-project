@@ -3,7 +3,7 @@
 [![React](https://img.shields.io/badge/React-18.3.1-61DAFB?logo=react&style=for-the-badge)](https://reactjs.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.2.7-38B2AC?logo=tailwind-css&style=for-the-badge)](https://tailwindcss.com/)
 [![Vite](https://img.shields.io/badge/Vite-4.1.0-B73BFE?logo=vite&style=for-the-badge)](https://vitejs.dev/)
-[![Netlify](https://img.shields.io/badge/Deploy-Netlify-00C7B7?logo=netlify&style=for-the-badge)](https://alirioi-ecommerce-project.netlify.app)
+[![Netlify](https://img.shields.io/badge/Deploy-Netlify-00C7B7?logo=netlify&style=for-the-badge)](https://alirioi.dev/e-commerce/)
 
 ## Live Demo | Demostración en Vivo
 
